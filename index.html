@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" data-theme="executive">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0B1120" />
+    <meta name="author" content="Jain Bai B" />
+    <link rel="icon" href="/favicon/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+    <!-- Apply the visitor's saved colour theme before first paint (key must match THEME_STORAGE_KEY). -->
+    <script>
+      try {
+        var t = localStorage.getItem('jb-theme');
+        if (t === 'executive' || t === 'consulting') {
+          document.documentElement.setAttribute('data-theme', t);
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', t === 'executive' ? '#0B1120' : '#FFFFFF');
+        }
+      } catch (e) {}
+    </script>
+    <!--app-head-->
+  </head>
+  <body>
+    <div id="root"><!--app-html--></div>
+    <script type="module" src="/src/entry-client.tsx"></script>
+  </body>
+</html>

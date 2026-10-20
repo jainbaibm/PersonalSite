@@ -1,0 +1,539 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/*
+ * Two switchable themes. Every colour utility reads a CSS variable, so a theme is
+ * just a set of variable values:
+ *   - Executive Technology (default, `@theme` below): deep navy hero, white content,
+ *     blue calls to action, Inter headings.
+ *   - Premium Consulting (`html[data-theme='consulting']`): white, charcoal headings,
+ *     muted steel-blue accents, serif headings.
+ * Semantic tokens used by components:
+ *   bg-page / bg-canvas / bg-surface / bg-surface-2   page, alternate sections, cards, subtle fills
+ *   text-ink / text-muted                              headings, secondary text
+ *   border-line / border-line-strong                   hairlines
+ *   blue-* primary accent · violet-* secondary accent · slate-* body greys · navy-950 dark bands
+ * The default theme is set in src/content/site.ts (defaultTheme).
+ */
+@theme {
+  --font-sans: 'Inter Variable', Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Inter Variable', Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace;
+
+  --color-page: #ffffff;
+  --color-canvas: #f8fafc;
+  --color-surface: #ffffff;
+  --color-surface-2: #f8fafc;
+  --color-line: #e2e8f0;
+  --color-line-strong: #cbd5e1;
+  --color-ink: #0b1120;
+  --color-muted: #5b6678;
+
+  --color-navy-950: #0b1120;
+  --color-navy-900: #111a2e;
+  --color-navy-800: #1a2540;
+
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
+  --color-slate-950: #020617;
+
+  --color-blue-50: #eff6ff;
+  --color-blue-100: #dbeafe;
+  --color-blue-200: #bfdbfe;
+  --color-blue-300: #93c5fd;
+  --color-blue-400: #60a5fa;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-blue-700: #1d4ed8;
+  --color-blue-800: #1e40af;
+  --color-blue-900: #1e3a8a;
+  --color-blue-950: #172554;
+
+  --color-violet-50: #f5f3ff;
+  --color-violet-100: #ede9fe;
+  --color-violet-200: #ddd6fe;
+  --color-violet-300: #c4b5fd;
+  --color-violet-400: #a78bfa;
+  --color-violet-500: #8b5cf6;
+  --color-violet-600: #7c3aed;
+  --color-violet-700: #6d28d9;
+  --color-violet-800: #5b21b6;
+  --color-violet-900: #4c1d95;
+  --color-violet-950: #2e1065;
+}
+
+/* ---------- Theme B: Premium Consulting ---------- */
+html[data-theme='consulting'] {
+  --font-display: 'Source Serif 4 Variable', 'Source Serif Pro', Georgia, 'Times New Roman', serif;
+
+  --color-page: #ffffff;
+  --color-canvas: #f7f8fa;
+  --color-surface: #ffffff;
+  --color-surface-2: #f7f8fa;
+  --color-line: #e6e8ec;
+  --color-line-strong: #d3d7de;
+  --color-ink: #1c1f24;
+  --color-muted: #5f6672;
+
+  --color-navy-950: #1b1e23;
+  --color-navy-900: #23272e;
+  --color-navy-800: #2d3239;
+
+  --color-slate-50: #f8f9fa;
+  --color-slate-100: #f1f3f5;
+  --color-slate-200: #e6e8ec;
+  --color-slate-300: #d3d7de;
+  --color-slate-400: #a3a9b4;
+  --color-slate-500: #7a818d;
+  --color-slate-600: #5a616c;
+  --color-slate-700: #434952;
+  --color-slate-800: #2c3037;
+  --color-slate-900: #1c1f24;
+  --color-slate-950: #111316;
+
+  --color-blue-50: #f2f5f9;
+  --color-blue-100: #e3e9f1;
+  --color-blue-200: #c9d4e3;
+  --color-blue-300: #a3b5cd;
+  --color-blue-400: #7690b1;
+  --color-blue-500: #557296;
+  --color-blue-600: #3f5b80;
+  --color-blue-700: #34496a;
+  --color-blue-800: #2c3d58;
+  --color-blue-900: #263449;
+  --color-blue-950: #18212f;
+
+  --color-violet-50: #f1f6f6;
+  --color-violet-100: #ddebea;
+  --color-violet-200: #bdd7d5;
+  --color-violet-300: #93bcb9;
+  --color-violet-400: #6a9e9a;
+  --color-violet-500: #4f837f;
+  --color-violet-600: #3f6b68;
+  --color-violet-700: #355755;
+  --color-violet-800: #2d4847;
+  --color-violet-900: #273d3c;
+  --color-violet-950: #162423;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+    text-rendering: optimizeLegibility;
+    color-scheme: light;
+  }
+  body {
+    @apply bg-page font-sans text-slate-700 antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+  ::selection {
+    @apply bg-blue-100 text-ink;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-blue-500);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  .dark-section :focus-visible {
+    outline-color: var(--color-blue-300);
+  }
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline-offset: 0;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  /* Refined editorial headings: serif display face for page and section titles. */
+  h1,
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.012em;
+  }
+  nav h2,
+  footer h2,
+  dialog h2 {
+    font-family: var(--font-sans);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Subtle architectural grid used behind page headers and the hero. */
+.hero-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at 70% 0%, black 30%, transparent 75%);
+}
+html[data-theme='consulting'] .hero-grid {
+  background-image:
+    linear-gradient(to right, rgb(28 31 36 / 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(28 31 36 / 0.035) 1px, transparent 1px);
+}
+
+/*
+ * Hero and page headers.
+ * Executive: deep navy. Neutral tokens are re-scoped inside so existing markup
+ * (text-ink, text-slate-600, bg-surface cards, chips, notices) reads light-on-navy.
+ */
+.surface-header {
+  background-color: #0b1120;
+  background-image:
+    radial-gradient(46rem 24rem at 88% -10%, rgb(37 99 235 / 0.3), transparent 70%),
+    radial-gradient(30rem 20rem at 0% 110%, rgb(124 58 237 / 0.14), transparent 70%),
+    linear-gradient(180deg, #0b1120 0%, #101a33 100%);
+  color: #cbd5e1;
+  --color-ink: #ffffff;
+  --color-muted: #a3b1c6;
+  --color-surface: #131d33;
+  --color-surface-2: #17223b;
+  --color-canvas: #17223b;
+  --color-line: rgb(255 255 255 / 0.12);
+  --color-line-strong: rgb(255 255 255 / 0.24);
+  --color-slate-50: rgb(255 255 255 / 0.06);
+  --color-slate-100: rgb(255 255 255 / 0.08);
+  --color-slate-200: rgb(255 255 255 / 0.14);
+  --color-slate-400: rgb(255 255 255 / 0.32);
+  --color-slate-500: #a3b1c6;
+  --color-slate-600: #cbd5e1;
+  --color-slate-700: #e2e8f0;
+  --color-slate-800: #f1f5f9;
+  --color-blue-50: rgb(96 165 250 / 0.14);
+  --color-blue-200: rgb(147 197 253 / 0.35);
+  --color-blue-800: #bfdbfe;
+  --color-blue-950: #dbeafe;
+  --color-violet-50: rgb(167 139 250 / 0.14);
+  --color-violet-200: rgb(196 181 253 / 0.35);
+  --color-violet-800: #ddd6fe;
+  --color-violet-950: #ede9fe;
+  --color-amber-50: rgb(251 191 36 / 0.12);
+  --color-amber-200: rgb(251 191 36 / 0.35);
+  --color-amber-900: #fde68a;
+  --color-amber-950: #fef3c7;
+}
+/* Accent text on navy (eyebrows, highlighted headline words, links). */
+.surface-header .text-blue-700 {
+  color: #93c5fd;
+}
+.surface-header .hover\:text-blue-800:hover {
+  color: #bfdbfe;
+}
+html[data-theme='consulting'] .surface-header {
+  background-color: var(--color-page);
+  background-image:
+    radial-gradient(48rem 24rem at 90% -20%, rgb(63 91 128 / 0.07), transparent 70%),
+    linear-gradient(180deg, #f6f7f9 0%, #ffffff 100%);
+  color: inherit;
+  /* Reset every re-scoped token to the consulting values on the root. */
+  --color-ink: #1c1f24;
+  --color-muted: #5f6672;
+  --color-surface: #ffffff;
+  --color-surface-2: #f7f8fa;
+  --color-canvas: #f7f8fa;
+  --color-line: #e6e8ec;
+  --color-line-strong: #d3d7de;
+  --color-slate-50: #f8f9fa;
+  --color-slate-100: #f1f3f5;
+  --color-slate-200: #e6e8ec;
+  --color-slate-400: #a3a9b4;
+  --color-slate-500: #7a818d;
+  --color-slate-600: #5a616c;
+  --color-slate-700: #434952;
+  --color-slate-800: #2c3037;
+  --color-blue-50: #f2f5f9;
+  --color-blue-200: #c9d4e3;
+  --color-blue-800: #2c3d58;
+  --color-blue-950: #18212f;
+  --color-violet-50: #f1f6f6;
+  --color-violet-200: #bdd7d5;
+  --color-violet-800: #2d4847;
+  --color-violet-950: #162423;
+  --color-amber-50: #fffbeb;
+  --color-amber-200: #fde68a;
+  --color-amber-900: #78350f;
+  --color-amber-950: #461901;
+}
+html[data-theme='consulting'] .surface-header .text-blue-700 {
+  color: var(--color-blue-700);
+}
+html[data-theme='consulting'] .surface-header .hover\:text-blue-800:hover {
+  color: var(--color-blue-800);
+}
+
+/* Dark bands (lab showcase, contact banner, footer): navy or charcoal. */
+.dark-section {
+  background-color: var(--color-navy-950);
+  background-image: linear-gradient(180deg, #0b1120 0%, #111a2e 100%);
+}
+html[data-theme='consulting'] .dark-section {
+  background-image: linear-gradient(180deg, #1b1e23 0%, #16181c 100%);
+}
+
+.cta-glow {
+  background:
+    radial-gradient(40rem 20rem at 85% 10%, rgb(37 99 235 / 0.28), transparent 70%),
+    radial-gradient(30rem 18rem at 10% 100%, rgb(124 58 237 / 0.16), transparent 70%);
+}
+html[data-theme='consulting'] .cta-glow {
+  background:
+    radial-gradient(40rem 20rem at 85% 10%, rgb(85 114 150 / 0.22), transparent 70%),
+    radial-gradient(30rem 18rem at 10% 100%, rgb(85 114 150 / 0.1), transparent 70%);
+}
+
+/* AI / Cloud icon backdrop (hero and page headers). */
+.tech-backdrop {
+  color: #60a5fa;
+  -webkit-mask-image: radial-gradient(ellipse 75% 95% at 88% 45%, black 25%, transparent 78%);
+  mask-image: radial-gradient(ellipse 75% 95% at 88% 45%, black 25%, transparent 78%);
+}
+html[data-theme='consulting'] .tech-backdrop {
+  color: var(--color-blue-600);
+}
+/* Executive theme: faint dashed connectors turn the icons into an architecture sketch. */
+.tech-links {
+  display: block;
+}
+html[data-theme='consulting'] .tech-links {
+  display: none;
+}
+.tech-float {
+  animation: tech-float 10s ease-in-out infinite;
+}
+@keyframes tech-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* Showcase cards: a fine steel-blue rule along the top edge on hover/focus. */
+.card-glow::before {
+  content: '';
+  position: absolute;
+  inset: -1px -1px auto -1px;
+  height: 3px;
+  border-radius: 0.75rem 0.75rem 0 0;
+  background: var(--color-blue-600);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+.card-glow:hover::before,
+.card-glow:focus-within::before {
+  opacity: 1;
+}
+
+/* Mermaid output */
+.diagram-svg svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100% !important;
+  margin-inline: auto;
+}
+.diagram-svg--large svg {
+  min-height: 60vh;
+}
+.diagram-dialog::backdrop {
+  backdrop-filter: blur(3px);
+}
+
+/* Diagrams inside articles */
+.mermaid-block {
+  margin-block: 2rem;
+  overflow-x: auto;
+  border: 1px solid var(--color-line);
+  border-radius: 0.75rem;
+  background: var(--color-surface);
+  padding: 1.25rem;
+}
+.mermaid-block .mermaid-fallback {
+  margin: 0;
+  background: var(--color-surface-2);
+  color: var(--color-slate-600);
+  font-size: 0.8rem;
+}
+
+/* Article typography */
+.article-body {
+  --tw-prose-body: var(--color-slate-700);
+  --tw-prose-headings: var(--color-ink);
+  --tw-prose-lead: var(--color-slate-700);
+  --tw-prose-links: var(--color-blue-700);
+  --tw-prose-bold: var(--color-ink);
+  --tw-prose-counters: var(--color-slate-500);
+  --tw-prose-bullets: var(--color-violet-500);
+  --tw-prose-hr: var(--color-line);
+  --tw-prose-quotes: var(--color-slate-700);
+  --tw-prose-quote-borders: var(--color-blue-300);
+  --tw-prose-captions: var(--color-slate-600);
+  --tw-prose-code: var(--color-ink);
+  --tw-prose-th-borders: var(--color-line-strong);
+  --tw-prose-td-borders: var(--color-line);
+  font-size: 1.0625rem;
+  line-height: 1.85;
+}
+.article-body :where(h2) {
+  margin-top: 2.5em;
+  letter-spacing: -0.015em;
+}
+.article-body :where(a) {
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.article-body :where(a:hover) {
+  color: var(--color-blue-900);
+}
+.article-body :where(blockquote) {
+  font-style: normal;
+  background: var(--color-canvas);
+  border-radius: 0 0.5rem 0.5rem 0;
+  padding: 0.75rem 1.25rem;
+}
+.article-body :where(blockquote p::before, blockquote p::after) {
+  content: none;
+}
+.article-body :where(:not(pre) > code) {
+  background: var(--color-slate-100);
+  border-radius: 0.3rem;
+  padding: 0.12em 0.35em;
+  font-weight: 500;
+}
+.article-body :where(:not(pre) > code)::before,
+.article-body :where(:not(pre) > code)::after {
+  content: none;
+}
+.table-wrap {
+  overflow-x: auto;
+}
+
+/* Code blocks + syntax highlighting */
+.code-block {
+  position: relative;
+  margin-block: 1.75rem;
+}
+.code-block pre {
+  margin: 0 !important;
+  background: var(--color-navy-950) !important;
+  border: 1px solid var(--color-line);
+  color: #e2e8f0;
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.25rem !important;
+  font-size: 0.85rem !important;
+  line-height: 1.7 !important;
+  overflow-x: auto;
+}
+.code-lang {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-built_in,
+.hljs-type {
+  color: #c4b5fd;
+}
+.hljs-string,
+.hljs-attr,
+.hljs-template-string {
+  color: #86efac;
+}
+.hljs-number,
+.hljs-literal {
+  color: #fdba74;
+}
+.hljs-comment,
+.hljs-quote {
+  color: #94a3b8;
+  font-style: italic;
+}
+.hljs-title,
+.hljs-title.function_,
+.hljs-section {
+  color: #93c5fd;
+}
+.hljs-meta,
+.hljs-variable,
+.hljs-params {
+  color: #e2e8f0;
+}
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link {
+  color: #f9a8d4;
+}
+
+/* Print: always a clean black-on-white document (used for the resume page). */
+@media print {
+  @page {
+    margin: 14mm;
+  }
+  header.sticky,
+  footer,
+  .no-print,
+  a[href='#main'] {
+    display: none !important;
+  }
+  html {
+    color-scheme: light;
+  }
+  body {
+    font-size: 10.5pt;
+  }
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    border-color: #ccc !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  .print-plain {
+    border: 0 !important;
+    padding: 0 !important;
+  }
+  section,
+  article {
+    break-inside: avoid-page;
+  }
+}
