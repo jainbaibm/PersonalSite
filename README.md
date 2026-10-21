@@ -1,4 +1,4 @@
-# Jain Bai B — Personal Portfolio
+# Jain Bai B —  Personal Portfolio
 
 Static, prerendered portfolio website for a Senior Solution Architect: home, about, architecture expertise, case studies, architecture lab, blog, certifications, resume and contact.
 
