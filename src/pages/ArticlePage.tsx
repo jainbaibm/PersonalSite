@@ -119,7 +119,7 @@ export function ArticlePage() {
               <div>
                 <p className="font-semibold text-ink">{site.name}</p>
                 <p className="mt-1 text-sm leading-relaxed text-slate-600">
-                  {site.role} with 17+ years designing enterprise platforms on AWS and Google Cloud.{' '}
+                  {site.role} with 18 years designing enterprise platforms on AWS and Google Cloud.{' '}
                   <Link to="/about/" className="font-semibold text-blue-700 hover:text-blue-800">
                     About me
                   </Link>
