@@ -39,13 +39,13 @@ export const profile = {
 
   headline: 'Designing Secure, Scalable Enterprise Systems.',
   intro:
-    'I’m a Solution Architect with 17+ years of experience translating business goals into secure, scalable, and cost-efficient technology platforms across cloud, distributed systems, and modern enterprise architecture.',
+    'I’m a Solution Architect with 18 years of experience translating business goals into secure, scalable, and cost-efficient technology platforms across cloud, distributed systems, and modern enterprise architecture.',
 
   shortBio:
     'I design enterprise platforms across healthcare, automotive, insurance and data governance — from API-first integration layers and event-driven microservices to dual-cloud architectures on AWS and Google Cloud. I work closely with CTOs and engineering leaders to turn strategy into designs teams can build, run and evolve.',
 
   stats: [
-    { value: '17+', label: 'years in enterprise software engineering and architecture' },
+    { value: '18', label: 'years in enterprise software engineering and architecture' },
     { value: '30+', label: 'enterprise applications unified on one platform architecture' },
     { value: '1,200+', label: 'dealers connected through standardized API integration' },
     { value: '100K+', label: 'claims transactions a day handled by microservices I designed' },
