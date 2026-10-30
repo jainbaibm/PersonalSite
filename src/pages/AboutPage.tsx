@@ -17,7 +17,7 @@ export function AboutPage() {
     <>
       <Seo
         title="About"
-        description="About Jain Bai B — Solution Architect with 17+ years across healthcare, automotive, insurance and data governance. Architecture philosophy, leadership approach and career milestones."
+        description="About Jain Bai B — Solution Architect with 18 years across healthcare, automotive, insurance and data governance. Architecture philosophy, leadership approach and career milestones."
         path="/about/"
         type="profile"
         jsonLd={personJsonLd}
