@@ -35,7 +35,7 @@ export function HomePage() {
     <>
       <Seo
         title={`${site.name} — Senior Solution Architect | Cloud, Enterprise & AI Architecture`}
-        description="Senior Solution Architect with 17+ years designing secure, scalable enterprise systems on AWS and Google Cloud — microservices, API integration, distributed systems and GenAI. AWS and Google Cloud professional certified."
+        description="Senior Solution Architect with 18 years designing secure, scalable enterprise systems on AWS and Google Cloud — microservices, API integration, distributed systems and GenAI. AWS and Google Cloud professional certified."
         path="/"
         type="profile"
         jsonLd={[personJsonLd, websiteJsonLd]}
